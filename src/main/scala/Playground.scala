@@ -1,14 +1,15 @@
 import akka.actor.typed.ActorSystem
-import akka.actor.typed.javadsl.Behaviors
-
+import akka.actor.typed.scaladsl.Behaviors
 import scala.concurrent.duration.DurationInt
 
-object Playground extends App {
-  val system = ActorSystem(Behaviors.setup[String] { ctx =>
-    ctx.getLog.info("Welcome to AKKA!")
-    Behaviors.empty
-  }, "SimpleSystem")
+object Playground {
+  def main(args: Array[String]): Unit = {
+    val system = ActorSystem(Behaviors.setup[String] { ctx =>
+      ctx.log.info("Welcome to Akka!")
+      Behaviors.empty
+    }, "SimpleSystem")
 
-  import system.executionContext
-  system.scheduler.scheduleOnce(3.seconds, () => system.terminate())
+    import system.executionContext
+    system.scheduler.scheduleOnce(3.seconds, () => system.terminate())
+  }
 }
